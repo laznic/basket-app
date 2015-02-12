@@ -1,10 +1,21 @@
+'use strict';
+
+// Get Angulars
 require('angular');
 require('angular-route');
 require('angular-resource');
 require('angular-animate');
+
+var dependencies = [
+  'ngRoute',
+  'ngResource',
+  'ngAnimate',
+  'basic'
+];
+
 var views = 'views/';
 
-angular.module('vikingApp', ['ngRoute', 'ngResource', 'ngAnimate', 'basic']);
+angular.module('basket', dependencies);
 
 var app = angular.module('basic', []);
 
