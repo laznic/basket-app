@@ -147,7 +147,7 @@ gulp.task('watch', function() {
     files: [paths.styles.destination, paths.scripts.destination, paths.templates.destination, paths.partials.destination, paths.media.destination, './build/client/bundle.js'],
     port: 6678,
     open: false,
-    reloadDelay: 500,
+    reloadDelay: 250,
     server: {
       baseDir: 'build/client'
     }

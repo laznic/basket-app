@@ -1,0 +1,16 @@
+.page-container
+  p singleitem
+  | {{item}}
+  input(type="text" ng-model="item.text" placeholder="Item name")
+  button.btn(ng-click="goBack()") save
+  button.btn(ng-click="delete()") delete
+
+  .list
+    .list-item(ng-repeat="person in people" ng-click="assignPeople(person)")
+      | {{person.firstname}} {{person.lastname}}
+
+  .list.comments
+    .comment(ng-repeat="comment in item.comments")
+      | {{comment.text}}
+    textarea(ng-model="newComment.text")
+    button.btn(ng-click="addComment()") add comment

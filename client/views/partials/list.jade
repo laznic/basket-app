@@ -1,0 +1,14 @@
+.page-container
+  .list
+    .list-item(ng-repeat="(itemIndex, item) in list.items track by $index" ng-if="!item.checked")
+        input(type="checkbox" ng-click="checkItem()")
+        input(type="text" ng-model="item.text" placeholder="Item name" autofocus-this="$index === focus")
+        button.btn(ng-click="editItem()") edit
+        button.btn(ng-click="deleteItem(item)") delete
+
+  button.btn(ng-click="addNewItem()") add new item
+  button.btn(ng-click="addNewList()") add new list
+
+  .list
+    .list-item(ng-repeat="(itemIndex, item) in list.items track by $index" ng-if="item.checked")
+      span {{item.text}}

@@ -1,39 +1,56 @@
-'use strict';
-
-// Get Angulars
+// Get Angulars and setup dependencies
 require('angular');
 require('angular-route');
 require('angular-resource');
 require('angular-animate');
+require('ngstorage'); 
+require('lodash'); 
 
 var dependencies = [
   'ngRoute',
   'ngResource',
   'ngAnimate',
-  'basic'
+  'ngStorage'
 ];
 
-var views = 'views/';
+// Get custom modules and push them to dependencies
+var modules = [
+  require('./storage'),
+  require('./list'),
+  require('./singleitem')
+];
 
-angular.module('basket', dependencies);
+modules.forEach(function(model) {
+  dependencies.push(model.name);
+});
 
-var app = angular.module('basic', []);
+// Define paths and Angular app
+var views   = 'views/',
+    baseUrl = '/',
+    app     = angular.module('basket', dependencies);
 
 app.config(['$routeProvider', '$locationProvider', '$httpProvider', function($routeProvider, $locationProvider, $httpProvider) {
   $routeProvider
-    .when('/', {
-      templateUrl: views + 'front.html',
-      controller:  'frontController'
-    });
-  
+    .when(baseUrl + ':list?', {
+      templateUrl: views + 'list.html',
+      controller:  'listController'
+    })
+    .when(baseUrl + ':list?/:item', {
+      templateUrl: views + 'singleitem.html',
+      controller: 'singleItemController'
+    })
+    .otherwise({redirectTo: baseUrl});
+
   // $locationProvider.html5Mode(true);
 }]);
 
-app.controller('frontController', ['$scope', '$resource', '$http', '$routeParams', '$route', '$q', '$location', function($scope, $resource, $http, $routeParams, $route, $q, $location) {
-  $scope.line1 = "Lo there, do I see my father,";
-  $scope.line2 = "Lo there, do I see my mother, my sisters and brothers,";
-  $scope.line3 = "Lo there, do I see the line of my people, back to the beginning,";
-  $scope.line4 = "Lo, they do call to me, they bid me take my place among them,";
-  $scope.line5 = "In the halls of Valhalla where the brave may code forever.";
-
+// Setup mock data
+app.run(['$location', '$localStorage', function($location, $localStorage) {
+  $localStorage.currentUser = {id: 1, firstname: 'John', lastname: 'Doe' };
+  $localStorage.people = [
+      { id: 2, firstname: 'Jane', lastname: 'Doe', shared: true },
+      { id: 3, firstname: 'Bob', lastname: 'Dylan', shared: true },
+      { id: 4, firstname: 'Jack', lastname: 'Black', shared: true },
+    ];
 }]);
+
