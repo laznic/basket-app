@@ -3,9 +3,11 @@
   border-bottom 2px solid #ebebee
   height 75px
   width 100%
+  position fixed
+  z-index 100
 
-.logo
-  background #5060a5
+.header-logo
+  background basket-blue
   height 45px
   width 45px
   border-radius 50%
@@ -13,5 +15,29 @@
   position relative
   top 50%
   transform translateY(-50%)
-  font-weight 800
+  font-weight 600
   content 'B'
+  text-align center
+  font-size 30px
+  margin-left 15px
+  span
+    top 25%
+    transform translateY(-25%)
+    position relative
+
+.header-button-wrapper
+  width 100%
+  text-align center
+  position fixed
+  top 0
+  z-index 100
+
+.header-button 
+  font-size 16px
+  background #a3dd19
+  color #fff
+  border 0
+  padding 28px 25px
+  z-index 9999
+  &:hover
+    background #90c610

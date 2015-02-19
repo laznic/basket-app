@@ -9,8 +9,36 @@ html(lang="en", ng-app='basket')
     link(rel='stylesheet' href='css/styles.css' media='screen')
   body
     header.header
-      .logo
+      .header-logo
         span B
+
+    .sidebar
+      .profile
+        .profile-image(style="background-color: {{currentUser.color}}")
+          i.fa.fa-user
+        .profile-name
+          | John Doe
+
+      .sidebar-navigation
+        .sidebar-navigation-item
+          .sidebar-navigation-item-icon.light-blue-block
+            i.fa.fa-share
+          .sidebar-navigation-item-text
+            | Share list
+
+        .sidebar-navigation-item
+          .sidebar-navigation-item-icon.light-green-block
+            i.fa.fa-envelope
+          .sidebar-navigation-item-text
+            | Email list
+
+        .sidebar-navigation-item
+          .sidebar-navigation-item-icon.orange-block
+            i.fa.fa-cog
+          .sidebar-navigation-item-text
+            | Settings
+
     .container(ng-view)
 
+    script(type='text/javascript' src='media/lodash.js')
     script(type='text/javascript' src='js/bundle.js')

@@ -1,4 +1,5 @@
-var list = angular.module('list', []);
+var list = angular.module('list', []),
+    _    = window._;
 
 list.controller('listController', ['$route', '$location', '$scope', '$rootScope', '$localStorage', '$routeParams', 'getItemState', function($route, $location, $scope, $rootScope, $localStorage, $routeParams, getItemState) {
   // Basic checking if a list exists
@@ -7,9 +8,12 @@ list.controller('listController', ['$route', '$location', '$scope', '$rootScope'
         $location.path('/' + $localStorage.list.id);  
       }
       $scope.list = $localStorage.list;
+
   } else {
     resetList();
   }
+
+  $scope.currentUser = $localStorage.currentUser;
 
   $scope.checkedList = [];
 
@@ -45,7 +49,7 @@ list.controller('listController', ['$route', '$location', '$scope', '$rootScope'
 
   // Add new item to the list
   $scope.addNewItem = function(index) {
-    $scope.list.items.push({text: '', checked: false, assignedTo: [], comments: []});
+    $scope.list.items.push({text: '', checked: false, assignedTo: [], comments: [], newComments: false});
     $scope.focus = $scope.list.items.length - 1;
   };
 
@@ -55,7 +59,7 @@ list.controller('listController', ['$route', '$location', '$scope', '$rootScope'
   };
 
   $scope.checkItem = function() {
-    this.item.checked = true;
+    this.item.checked = !this.item.checked;
   }
 
   // Go to item edit view
@@ -89,5 +93,7 @@ list.directive('autofocusThis', function() {
     }
   }
 });
+
+
 
 module.exports = list;

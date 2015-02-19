@@ -3,8 +3,8 @@ require('angular');
 require('angular-route');
 require('angular-resource');
 require('angular-animate');
-require('ngstorage'); 
-require('lodash'); 
+require('ngstorage');
+var Please = require('pleasejs/dist/Please.js');
 
 var dependencies = [
   'ngRoute',
@@ -45,12 +45,22 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function($ro
 }]);
 
 // Setup mock data
-app.run(['$location', '$localStorage', function($location, $localStorage) {
-  $localStorage.currentUser = {id: 1, firstname: 'John', lastname: 'Doe' };
-  $localStorage.people = [
-      { id: 2, firstname: 'Jane', lastname: 'Doe', shared: true },
-      { id: 3, firstname: 'Bob', lastname: 'Dylan', shared: true },
-      { id: 4, firstname: 'Jack', lastname: 'Black', shared: true },
-    ];
+app.run(['$location', '$localStorage', '$rootScope', function($location, $localStorage, $rootScope) {
+
+  if(!$localStorage.currentUser && !$localStorage.people) {
+    $localStorage.currentUser = {id: 1, firstname: 'John', lastname: 'Doe', profilepicture: '', color: '' };
+    $localStorage.people = [
+        $localStorage.currentUser,
+        { id: 2, firstname: 'Jane', lastname: 'Doe', shared: true, profilepicture: '', color: '' },
+        { id: 3, firstname: 'Bob', lastname: 'Dylan', shared: true, profilepicture: '', color: '' },
+        { id: 4, firstname: 'Jack', lastname: 'Black', shared: true, profilepicture: '', color: '' },
+      ];
+      _.each($localStorage.people, function(person) {
+        person.color = Please.make_color()[0];
+      });
+
+      $localStorage.currentUser.color = $localStorage.people[0].color;
+  }
+    $rootScope.currentUser = $localStorage.currentUser;
 }]);
 

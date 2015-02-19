@@ -153,12 +153,6 @@ gulp.task('watch', function() {
     }
   };
 
-  sync(config, function(err, bs) {
-    if(err) {
-      console.log(err);
-    }
-  });
-
   var bundle = watchify(browserify({
     entries:    [paths.scripts.source],
     extensions: ['.js'],
@@ -168,6 +162,12 @@ gulp.task('watch', function() {
     fullPaths: true
   }));
 
+  sync(config, function(err, bs) {
+    if(err) {
+      console.log(err);
+    }
+  });
+
   return bundle.on('update', function() {
     var build;
     build = bundle.bundle()
@@ -176,6 +176,7 @@ gulp.task('watch', function() {
     return build.pipe(gulp.dest(paths.scripts.destination))
                 .pipe(sync.reload({ stream: true }));
   }).emit('update');
+
 
 });
 

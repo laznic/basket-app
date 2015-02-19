@@ -1,14 +1,48 @@
 .page-container
-  .list
-    .list-item(ng-repeat="(itemIndex, item) in list.items track by $index" ng-if="!item.checked")
-        input(type="checkbox" ng-click="checkItem()")
-        input(type="text" ng-model="item.text" placeholder="Item name" autofocus-this="$index === focus")
-        button.btn(ng-click="editItem()") edit
-        button.btn(ng-click="deleteItem(item)") delete
+  .header-button-wrapper
+    button.btn.header-button(ng-click="addNewList()") I need a new list!
 
-  button.btn(ng-click="addNewItem()") add new item
-  button.btn(ng-click="addNewList()") add new list
+  .list.col
+    button.btn.btn-add-item(ng-click="addNewItem()") What else do you need?
+    .list-item(ng-repeat="(itemIndex, item) in list.items" ng-if="!item.checked")
+        .inline-block.va-middle
+          input(type="checkbox" ng-click="checkItem()")
+          .custom-checkbox
+            i.fa.fa-check
+        .inline-block.va-middle.col-80
+          input(type="text" ng-model="item.text" placeholder="Item name" autofocus-this="$index === focus")
+          span.bold(ng-repeat="person in item.assignedTo " ng-if="item.assignedTo.length")
+            span(ng-if="person.id !== currentUser.id") {{person.firstname}}
+            span(ng-if="person.id === currentUser.id") You
+            span.normal {{$last ? '' : ($index === item.assignedTo.length-2) ? ' and ' : ', '}}
+          span.bold(ng-if="!item.assignedTo.length") You
+          |  should get this
+        .list-item-buttons.col-20
+          a.btn(ng-click="editItem()")
+            .comment-notification(ng-if="item.newComments")
+            i.fa.fa-comment-o
+            span.comment-count(ng-if="item.comments.length") {{item.comments.length}}
+          a.btn.btn-info(ng-click="editItem()") 
+            i.fa.fa-info-circle
+          a.btn.btn-delete(ng-click="deleteItem(item)")
+            i.fa.fa-times
 
-  .list
-    .list-item(ng-repeat="(itemIndex, item) in list.items track by $index" ng-if="item.checked")
-      span {{item.text}}
+  .list.checked-list
+    .list-item(ng-repeat="(itemIndex, item) in list.items" ng-if="item.checked")
+      .inline-block.va-middle
+        input(type="checkbox" ng-click="checkItem()" ng-checked="item.checked")
+        .custom-checkbox
+          i.fa.fa-check
+
+      .inline-block.va-middle.col-80
+        input(type="text" ng-model="item.text" placeholder="Item name" ng-class="{'line-through': item.checked}")
+        span.bold(ng-repeat="person in item.assignedTo" ng-if="item.assignedTo.length") {{person.firstname}} 
+        span.bold(ng-if="!item.assignedTo.length") You
+        |  got this
+      .list-item-buttons.col-20
+        a.btn(ng-click="editItem()") 
+          i.fa.fa-comment-o
+        a.btn(ng-click="editItem()") 
+          i.fa.fa-info-circle
+        a.btn(ng-click="deleteItem(item)")
+          i.fa.fa-times

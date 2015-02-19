@@ -1,11 +1,11 @@
 var single = angular.module('single', []),
-    _ = require('lodash');
+    _ = window._;
 
-single.controller('singleItemController', ['$route', '$location', '$scope', '$localStorage', 'getItemState', '$routeParams', '$filter', function($route, $location, $scope, $localStorage, getItemState, $routeParams, $filter) {
-
+single.controller('singleItemController', ['$route', '$location', '$scope', '$localStorage', 'getItemState', '$routeParams', '$filter', '$rootScope', function($route, $location, $scope, $localStorage, getItemState, $routeParams, $filter, $rootScope) {
   // Basic checking if an item exists
   if($localStorage.item) {
     $scope.item = $localStorage.item;
+    $scope.item.newComments = false;
   } else {
     $location.path('/' + $localStorage.list.id);
   }
@@ -27,7 +27,7 @@ single.controller('singleItemController', ['$route', '$location', '$scope', '$lo
 
   // Assign person to item
   $scope.assignPeople = function(person) {
-    if(!checkIfAssigned(person)) {
+    if(!$scope.checkIfAssigned(person)) {
       $scope.item.assignedTo.push(person);
     } else {
       var index = $scope.item.assignedTo.indexOf(person); 
@@ -35,7 +35,9 @@ single.controller('singleItemController', ['$route', '$location', '$scope', '$lo
     }
   };
 
-  function checkIfAssigned(person) {
+
+
+  $scope.checkIfAssigned = function(person) {
     if(_.find($scope.item.assignedTo, function(item) {
       return item.id === person.id;
     })) return true;
@@ -48,8 +50,13 @@ single.controller('singleItemController', ['$route', '$location', '$scope', '$lo
     $scope.newComment.created = new Date();
     $scope.item.comments.push($scope.newComment);
     $scope.newComment = {user: $localStorage.currentUser, text: '', created: null };
+    $scope.item.newComments = true;
   };
   
+  // Check item
+  $scope.checkItem = function() {
+    this.item.checked = !this.item.checked;
+  };
 
 }]);
 
