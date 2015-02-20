@@ -25,6 +25,7 @@
   padding 25px
   color #ccc
   border-radius 5px
+  margin-bottom 15px
 
 .btn-add-comment
   background basket-green
@@ -33,34 +34,8 @@
   padding 15px
 
 .btn-delete
-.btn-info
-  &::after
-    display none
-    background #525252
-    color #fff
-    padding 5px
-    content ''
-    position absolute
-    right -50px
-    top 50%
-    pointer-events none
-    transform translateY(-50%)
-    font-size 16px
-    z-index 2
-  &:hover
-    &::after
-      display block
-
-.btn-delete
   color #525252
   font-size 25px
-  &::after
-    content 'delete'
-
-.btn-info
-  &::after
-    content 'edit'
-    right -35px
 
 .btn-assign
   border-radius 5px
@@ -68,8 +43,8 @@
     background #daddec
     color basket-blue
 .assigned
-  background basket-blue
-  color #fff
+  background basket-blue !important
+  color #fff !important
 
 .comment-notification
   display block
@@ -81,4 +56,12 @@
   border-radius 50%
   top 7px
   left 7px
+
+.btn-menu
+  display block
+  top 50%
+  transform translateY(-50%)
+  position relative
+  width 100%
+  z-index 100
 /* Messages */

@@ -144,7 +144,7 @@ gulp.task('watch', function() {
   gulp.watch(paths.media.watch, ['media', sync.reload]);
 
   var config = {
-    files: [paths.styles.destination, paths.scripts.destination, paths.templates.destination, paths.partials.destination, paths.media.destination, './build/client/bundle.js'],
+    files: [paths.scripts.destination, paths.templates.destination, paths.partials.destination, paths.media.destination, './build/client/bundle.js'],
     port: 6678,
     open: false,
     reloadDelay: 250,

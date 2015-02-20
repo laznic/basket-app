@@ -98,12 +98,13 @@ textarea
 
 input[type="text"]
 input[type="password"]
+input[type="email"]
   -webkit-appearance none
   background none
-  padding 10px 10px 10px 0
+  padding 5px 55px 5px 0
   font-family Helvetica, Arial, Verdana, sans-serif !important
-  font-size 30px
-  margin 0 0 10px
+  font-size 25px
+  margin 0 0 5px
   border 0
   width 100%
   font-weight 100 !important
@@ -128,10 +129,8 @@ input[type="password"]
 
 .red
   color #ef3434
-  text-shadow 0px 1px 0px #c12222
 .green
   color #A6CF57
-  text-shadow 0px 1px 0px #799b36
 
 .small
   font-size 12px
@@ -158,15 +157,23 @@ input[type="password"]
   top 0
 
 .container
+  margin 0 auto
   width 100%
   height 100%
   position relative
-  padding 90px 16% 0 15px
+  padding 90px 0 0 0
+  transition all 400ms ease-in-out
+  transform translateX(0)
+  &.sidebar-toggled
+    padding 90px 215px 0 15px
 
 .page-container
   position relative
   width 100%
+  max-width 1440px
+  margin 0 auto
   height 100%
+  padding 0 15px
   &.show-page-2
     .page-1
       left -100%
@@ -198,8 +205,8 @@ input[type="password"]
 input[type="checkbox"]
     opacity 0
     margin 0 auto
-    width 90px
-    height 90px
+    width 60px
+    height 60px
     position relative
     cursor pointer
     margin-right 15px
@@ -209,12 +216,13 @@ input[type="checkbox"]
 
 .custom-checkbox
     display inline-block
-    width 90px
-    height 90px
+    width 60px
+    height 60px
     visibility visible
     border 3px solid #daddec
     pointer-events none
     position absolute
+    cursor pointer
     left 0
     top 0
     text-align center
@@ -224,18 +232,19 @@ input[type="checkbox"]
       top 50%
       position relative
       z-index 11
-      font-size 55px
+      font-size 35px
     &:after
         display block
         content ''
         background basket-blue
-        width 90px
-        height 90px
+        width 60px
+        height 60px
         position absolute
         top -3px
         left -3px
         z-index 10
         visibility hidden
+        cursor pointer
         transition all 150ms ease-in-out
         transform scale(0)
 
@@ -245,21 +254,43 @@ input[type=checkbox]:checked + .custom-checkbox:after
     pointer-events none
 
 .checked-list
+  width 100%
   margin-top 25px
   background #f5f5f5
   border-top 2px dashed #d7dae7
+  .list-item-buttons
+    background #f5f5f5
+
+.list
+  width 100%
+  padding 0 15px
+  max-width 1440px
+  margin 0 auto
 
 .list-item
   position relative
   padding 25px 0
+  transition all 300ms ease-in-out
+  &.ng-leave.ng-leave-active
+    opacity 0
+    transform scale(1,0)
+
+.item
+  width 70%
 
 .list-item-buttons
   position absolute
   right 0
+  top 50%
+  transform translateY(-50%)
   display inline-block
   color #525252
+  width 20%
+  max-width 50px
+  background #fdfdfd
+  text-align center !important
   a
-    font-size 25px
+    font-size 18px
 
 .comment-count
   font-size 12px
@@ -273,13 +304,17 @@ input[type=checkbox]:checked + .custom-checkbox:after
 
 .sidebar
   position fixed
-  right -170px
+  right -200px
   height 100%
   padding-top 90px
   border-left 2px solid #eaebee
-  width 250px
+  width 200px
   background #f9f9f9
   z-index 2
+  transition all 400ms ease-in-out
+  transform translateX(0)
+  &.sidebar-toggled
+    right 0
 
 .profile
 .sidebar-navigation
@@ -416,8 +451,80 @@ section
 .orange-block
   background basket-orange
 
-@media screen and (min-width 1024px) 
+.modal
+  position fixed
+  width 70%
+  max-width 500px
+  padding 25px
+  background #fff
+  box-shadow 0 0 100px 10px rgba(0,0,0,0.25)
+  top 30%
+  transform translateY(-30%)
+  margin 0 auto
+  left 0
+  right 0
+  z-index 100
+  transition all 500ms ease-in-out
+  &.ng-enter
+  &.ng-leave.ng-leave-active
+    opacity 0
+  &.ng-enter.ng-enter-active
+  &.ng-leave
+    opacity 1
+
+.new-color
+  display inline-block
+  vertical-align middle
+  width 40px
+  height 40px
+
+@media screen and (min-width 768px)
+  .header
+    height 75px
+  .header-logo
+    span
+      top 15%
+      transform translateY(-15%)
+  .header-button
+    padding 29px 25px
+  .header-button-wrapper
+    right 80px
+  .sidebar
+    right -120px
+  .list-item-buttons
+    top auto
+    transform translateY(0)
+    background none
+    max-width none
+    text-align right !important
+    a
+      font-size 25px
+  .container
+    padding 90px 75px 0 0
+
+@media screen and (min-width 1024px)
+  .btn-menu
+    display none
   .sidebar
     right 0
-    width 15%
-
+  .container
+    padding 90px 200px 0 0
+  input[type="checkbox"]
+      width 90px
+      height 90px
+  .custom-checkbox
+      width 90px
+      height 90px
+      i
+        font-size 55px
+      &:after
+          width 90px
+          height 90px
+  input[type="text"]
+  input[type="password"]
+    padding 10px 10px 10px 0
+    font-size 30px
+  .item
+    width 75%
+  .header-button-wrapper
+    right 200px

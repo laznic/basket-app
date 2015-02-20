@@ -1,0 +1,24 @@
+.modal
+  a.btn.right.top(ng-click='closeModal()')
+    i.fa.fa-times
+
+  .modal-content(ng-if='type === 1')
+    h1 Share list
+    span.block List shared with
+    .list-item.inline-block.margin-right-5(ng-repeat="person in people")
+      a.btn.btn-assign
+        .profile
+          .profile-image(ng-style='{"background-color": person.color}')
+            i.fa.fa-user
+          .profile-name {{person.firstname}} {{person.lastname}}
+
+  .modal-content(ng-if='type === 2')
+    h1 Email list
+    input(type='email' ng-model='email' novalidate placeholder='email@domain.com')
+    button.btn.light-green-block(ng-click='sendEmail()' ng-disabled='!email') send
+    span.block.green(ng-if='emailSent') List sent to {{email}}!
+
+  .modal-content(ng-if='type === 3')
+    h1 Settings
+    a.btn(ng-click='changeColor()') Change profile color
+    .new-color(ng-style='{"background-color": currentUser.color}')

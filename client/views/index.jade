@@ -11,32 +11,40 @@ html(lang="en", ng-app='basket')
     header.header
       .header-logo
         span B
+      .header-button-wrapper
+        button.btn.header-button(ng-if="frontPage" ng-controller="listController" ng-click="addNewList()") I need a new list!
+        button.btn.header-button(ng-if="!frontPage" ng-controller="singleItemController" ng-click="goBack()") All done
+      .header-menu-button
+        a.btn.btn-menu(ng-click='toggleMenu()')
+          i.fa.fa-bars.fa-2x
 
-    .sidebar
+    .sidebar(ng-class='{"sidebar-toggled": menutoggled}' ng-controller="sidebarController")
       .profile
-        .profile-image(style="background-color: {{currentUser.color}}")
+        .profile-image(ng-style='{"background-color": currentUser.color}')
           i.fa.fa-user
         .profile-name
           | John Doe
 
       .sidebar-navigation
-        .sidebar-navigation-item
+        .sidebar-navigation-item(ng-click='openModal(1)')
           .sidebar-navigation-item-icon.light-blue-block
             i.fa.fa-share
           .sidebar-navigation-item-text
             | Share list
 
-        .sidebar-navigation-item
+        .sidebar-navigation-item(ng-click='openModal(2)')
           .sidebar-navigation-item-icon.light-green-block
             i.fa.fa-envelope
           .sidebar-navigation-item-text
             | Email list
 
-        .sidebar-navigation-item
+        .sidebar-navigation-item(ng-click='openModal(3)')
           .sidebar-navigation-item-icon.orange-block
             i.fa.fa-cog
           .sidebar-navigation-item-text
             | Settings
+
+    modal-window(type='modal' ng-if='modal')
 
     .container(ng-view)
 

@@ -9,15 +9,17 @@ var Please = require('pleasejs/dist/Please.js');
 var dependencies = [
   'ngRoute',
   'ngResource',
-  'ngAnimate',
-  'ngStorage'
+  'ngStorage',
+  'ngAnimate'
 ];
 
 // Get custom modules and push them to dependencies
 var modules = [
   require('./storage'),
   require('./list'),
-  require('./singleitem')
+  require('./singleitem'),
+  require('./sidebar'),
+  require('./modal')
 ];
 
 modules.forEach(function(model) {
@@ -46,6 +48,19 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function($ro
 
 // Setup mock data
 app.run(['$location', '$localStorage', '$rootScope', function($location, $localStorage, $rootScope) {
+  // delete $localStorage.list;
+  // delete $localStorage.item;
+
+  $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
+      $rootScope.frontPage = true;
+      if(~current.$$route.originalPath.indexOf(':item')) {
+        $rootScope.frontPage = false;  
+      }
+  });
+
+  $rootScope.toggleMenu = function() {
+    $rootScope.menutoggled = !$rootScope.menutoggled;
+  }
 
   if(!$localStorage.currentUser && !$localStorage.people) {
     $localStorage.currentUser = {id: 1, firstname: 'John', lastname: 'Doe', profilepicture: '', color: '' };

@@ -50,7 +50,7 @@ list.controller('listController', ['$route', '$location', '$scope', '$rootScope'
   // Add new item to the list
   $scope.addNewItem = function(index) {
     $scope.list.items.push({text: '', checked: false, assignedTo: [], comments: [], newComments: false});
-    $scope.focus = $scope.list.items.length - 1;
+    $scope.focus = $scope.list.items.length;
   };
 
   $scope.deleteItem = function(item) {
@@ -86,12 +86,18 @@ list.directive('autofocusThis', function() {
       scope.$watch(function() {
         return scope.$eval(attrs.autofocusThis);
       }, function(newValue) {
-        if(newValue == true) {
+        if(newValue === false) {
           element[0].focus();
         } 
-      })
+      });
     }
   }
+});
+
+list.filter('reverse', function() {
+  return function(items) {
+    return items.slice().reverse();
+  };
 });
 
 

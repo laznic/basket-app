@@ -1,38 +1,34 @@
-
 .page-container
-  .header-button-wrapper
-    button.btn.header-button(ng-click="goBack()") All done
-
   .inline-block.va-middle
-    input(type="checkbox" ng-click="checkItem()" ng-checked="item.checked")
-    .custom-checkbox
+    input(type='checkbox' ng-click='checkItem()' ng-checked='item.checked')
+    .custom-checkbox(ng-click='checkItem()')
       i.fa.fa-check
-  .inline-block.va-middle.col-80
-    input.single-item-input(type="text" ng-model="item.text" placeholder="Item name" ng-class="{'line-through': item.checked}")
-  a.btn.btn-delete.right.top(ng-click="delete()") 
+  .inline-block.va-middle.col-70
+    input.single-item-input(type='text' ng-model='item.text' placeholder='Item name' ng-class='{"line-through": item.checked}')
+  a.btn.btn-delete.right.top(ng-click='delete()')
+    | delete   
     i.fa.fa-times
-
   section
     h1 Assigned to
     .list
-      .list-item.inline-block.margin-right-5(ng-repeat="person in people")
-        a.btn.btn-assign(ng-click="assignPeople(person)" ng-class="{assigned: checkIfAssigned(person)}")
+      .list-item.inline-block.margin-right-5(ng-repeat='person in people')
+        a.btn.btn-assign(ng-click='assignPeople(person)' ng-class='{assigned: checkIfAssigned(person)}')
           .profile
-            .profile-image(style="background-color: {{person.color}}")
+            .profile-image(ng-style='{"background-color": person.color}')
               i.fa.fa-user
             .profile-name {{person.firstname}} {{person.lastname}}
 
   section
     h1 Comments
     .list.comments
-      .comment(ng-repeat="comment in item.comments")
+      .comment(ng-repeat='comment in item.comments')
         .comment-user.inline-block
           .profile
-            .profile-image(style="background-color: {{comment.user.color}}")
+            .profile-image(ng-style='{"background-color": comment.user.color}')
               i.fa.fa-user
             .profile-name.block.ta-center
-              span(ng-if="currentUser.id !== comment.user.id") {{comment.user.firstname}}
-              span(ng-if="currentUser.id === comment.user.id") You
+              span(ng-if='currentUser.id !== comment.user.id') {{comment.user.firstname}}
+              span(ng-if='currentUser.id === comment.user.id') You
         .comment-text.inline-block {{comment.text}}
           .block
             span.small.comment-timestamp {{comment.created | date:'MMM d, y - H:mm'}}
@@ -40,11 +36,11 @@
     .list
       .comment
         .comment-text.new-comment
-          textarea(ng-model="newComment.text")
+          textarea(ng-model='newComment.text')
         .comment-user.inline-block.new-comment-user
           .profile
-            .profile-image(style="background-color: {{currentUser.color}}")
+            .profile-image(ng-style='{"background-color": currentUser.color}')
               i.fa.fa-user
             .profile-name.block.ta-center
               | You
-        button.btn.btn-block.btn-add-comment(ng-click="addComment()" ng-disabled="!newComment.text") Add comment
+        button.btn.btn-block.btn-add-comment(ng-click='addComment()' ng-disabled='!newComment.text') Add comment
