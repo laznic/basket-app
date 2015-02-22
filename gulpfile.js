@@ -180,7 +180,7 @@ gulp.task('watch', function() {
 
 });
 
-gulp.task('build', ['templates', 'partials', 'styles', 'media', 'scripts', 'fontawesome', 'fontawesome-fonts', 'watch']);
+gulp.task('build', ['templates', 'partials', 'styles', 'media', 'scripts', 'fontawesome', 'fontawesome-fonts']);
 
 gulp.task('start', ['watch']);
 
