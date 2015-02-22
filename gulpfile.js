@@ -180,8 +180,8 @@ gulp.task('watch', function() {
 
 });
 
-gulp.task('build', ['templates', 'partials', 'styles', 'media', 'scripts', 'fontawesome', 'fontawesome-fonts']);
+gulp.task('build', ['templates', 'partials', 'styles', 'media', 'scripts', 'fontawesome', 'fontawesome-fonts', 'watch']);
 
-gulp.task('start', ['build', 'watch']);
+gulp.task('start', ['watch']);
 
 gulp.task('default', ['build']);
