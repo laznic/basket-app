@@ -3,13 +3,11 @@ require('angular');
 require('angular-route');
 require('angular-resource');
 require('angular-animate');
-require('ngstorage');
 var Please = require('pleasejs/dist/Please.js');
 
 var dependencies = [
   'ngRoute',
   'ngResource',
-  'ngStorage',
   'ngAnimate'
 ];
 

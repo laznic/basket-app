@@ -1,9 +1,9 @@
 {
   "name": "Bower file",
   "version": "0.0.1",
-  "homepage": "https://github.com/vikingsofcode/nakkikone",
+  "homepage": "https://github.com/laznic/basket-app",
   "authors": [
-    "Niklas Lepistö <niklas@vikingsofco.de>"
+    "Niklas Lepistö <niklas@demtrees.com>"
   ],
   "license": "MIT",
   "private": true,
