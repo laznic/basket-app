@@ -13,9 +13,11 @@ modal.directive('modalWindow', ['$localStorage', '$rootScope', function($localSt
     link: function(scope) {
       scope.$watch('type', function(value) {
         scope.type = value;
+        scope.addPerson = false;
       });
 
-      scope.people = $localStorage.people;
+      scope.people = $rootScope.people;
+      scope.newPerson = { id: null, firstname: '', lastname: '', email: '', shared: false, profilepicture: '', color: '' };
 
       scope.closeModal = function() {
         $rootScope.modal = null;
@@ -29,7 +31,18 @@ modal.directive('modalWindow', ['$localStorage', '$rootScope', function($localSt
       scope.currentUser = $rootScope.currentUser;
       scope.changeColor = function() {
         $rootScope.currentUser.color = Please.make_color()[0];
-        _.find($localStorage.people, {id: $rootScope.currentUser.id}).color = $rootScope.currentUser.color;
+        _.find($rootScope.people, {id: $rootScope.currentUser.id}).color = $rootScope.currentUser.color;
+      };
+
+      scope.addNewPerson = function() {
+        var previous = _.last($rootScope.people).id;
+        scope.newPerson.id = previous + 1;
+        scope.newPerson.shared = true;
+        scope.newPerson.color = Please.make_color()[0];
+
+        $rootScope.people.push(scope.newPerson);
+        scope.newPerson = { id: null, firstname: '', lastname: '', email: '', shared: false, profilepicture: '', color: '' };
+        
       };
     }
   };

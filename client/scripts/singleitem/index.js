@@ -1,28 +1,39 @@
 var single = angular.module('single', []),
     _ = window._;
 
-single.controller('singleItemController', ['$route', '$location', '$scope', '$localStorage', 'getItemState', '$routeParams', '$filter', '$rootScope', function($route, $location, $scope, $localStorage, getItemState, $routeParams, $filter, $rootScope) {
+single.controller('singleItemController', ['$route', '$location', '$scope', 'locker', '$routeParams', '$filter', '$rootScope', function($route, $location, $scope, locker, $routeParams, $filter, $rootScope) {
+  $scope.people = $rootScope.people;
+  $scope.newComment = {user: $rootScope.currentUser, text: '', created: null};
+
   // Basic checking if an item exists
-  if($localStorage.item) {
-    $scope.item = $localStorage.item;
+  var item = locker.retrieveItem();
+  $scope.list = locker.retrieveList();
+  if(item) {
+    $scope.item = item;
     $scope.item.newComments = false;
   } else {
-    $location.path('/' + $localStorage.list.id);
+    $location.path('/');  
   }
 
-  $scope.people = $localStorage.people;
+  $scope.$watch('item', function(value) {
+    locker.storeItem(value);
+  });
+
+  $scope.$watch('list', function(value) {
+    locker.storeList(value);
+  });
 
   // Delete item function
   $scope.delete = function() {
-    var index = $localStorage.list.items.indexOf($scope.item);
-    $localStorage.list.items.splice(index, 1);
+    var index = $scope.list.items.indexOf($scope.item);
+    $scope.list.items.splice(index, 1);
     $location.path('/');
   };
 
   // Go back to list view
   $scope.goBack = function() {
-    delete $localStorage.item;
-    $location.path('/' + $localStorage.list.id);
+    delete $scope.item;
+    $location.path('/' + $scope.list.id);
   };
 
   // Assign person to item
@@ -35,21 +46,18 @@ single.controller('singleItemController', ['$route', '$location', '$scope', '$lo
     }
   };
 
-
-
+  // Check if a person is already assigned
   $scope.checkIfAssigned = function(person) {
     if(_.find($scope.item.assignedTo, function(item) {
       return item.id === person.id;
     })) return true;
-  }
-
-  $scope.newComment = {user: $localStorage.currentUser, text: '', created: null};
+  };
 
   // Comment the item
   $scope.addComment = function() {
     $scope.newComment.created = new Date();
     $scope.item.comments.push($scope.newComment);
-    $scope.newComment = {user: $localStorage.currentUser, text: '', created: null };
+    $scope.newComment = {user: $rootScope.currentUser, text: '', created: null };
     $scope.item.newComments = true;
   };
   

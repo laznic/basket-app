@@ -14,11 +14,18 @@
   font-family Helvetica, Arial, Verdana, sans-serif
   &:disabled
     background #ccc !important
+  &.no-hover
+    background none !important
+    cursor default
+  &.disabled
+    pointer-events none
+    opacity 0.25
 
 .btn-block 
   display block
 
 .btn-add-item
+  display inline-block
   width 100%
   background #f7f7f7
   border 2px dashed #ccc
@@ -51,8 +58,8 @@
   content ''
   position absolute
   background basket-red
-  width 10px
-  height 10px
+  width 7px
+  height 7px
   border-radius 50%
   top 7px
   left 7px
@@ -64,4 +71,12 @@
   position relative
   width 100%
   z-index 100
+
+.btn-send
+  width 100%
+  text-align center
+  background basket-green
+  color #fff
+  padding 15px 
+
 /* Messages */

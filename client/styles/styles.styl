@@ -96,6 +96,10 @@ textarea
   &:focus
     outline none
 
+input[type="submit"]
+  &:focus
+    outline none
+    
 input[type="text"]
 input[type="password"]
 input[type="email"]
@@ -129,8 +133,12 @@ input[type="email"]
 
 .red
   color #ef3434
+
 .green
   color #A6CF57
+
+.gray
+  color #daddec
 
 .small
   font-size 12px
@@ -141,13 +149,11 @@ input[type="email"]
 .block
   display block
 
-.divider-horizontal
-  width 100%
-  border-bottom 1px dashed #ccc
-  margin 15px 0
-
 .margin-top-15
   margin-top 15px
+
+.margin-bottom-15
+  margin-bottom 15px
 
 .right
   right 0
@@ -161,11 +167,18 @@ input[type="email"]
   width 100%
   height 100%
   position relative
-  padding 90px 0 0 0
+  padding 75px 0 0 0
   transition all 400ms ease-in-out
   transform translateX(0)
   &.sidebar-toggled
     padding 90px 215px 0 15px
+  &.ng-enter
+  &.ng-leave.ng-leave-active
+    opacity 0
+    position absolute
+  &.ng-enter.ng-enter-active
+  &.ng-leave
+    opacity 1
 
 .page-container
   position relative
@@ -174,33 +187,6 @@ input[type="email"]
   margin 0 auto
   height 100%
   padding 0 15px
-  &.show-page-2
-    .page-1
-      left -100%
-    .page-2
-      left 0
-  &.show-page-3
-    .page-1
-      top 100%
-    .page-3
-      top 0
-    & + .bottom-nav
-      bottom -100%
-  .page
-    position absolute
-    left 0
-    top 0
-    overflow hidden
-    display block
-    width 100%
-    height 100%
-    transition all 500ms ease-in-out
-  .page-2
-    left 100%
-    background #b0d369
-  .page-3
-    top -100%
-
 
 input[type="checkbox"]
     opacity 0
@@ -271,9 +257,25 @@ input[type=checkbox]:checked + .custom-checkbox:after
   position relative
   padding 25px 0
   transition all 300ms ease-in-out
+  &.ng-enter
   &.ng-leave.ng-leave-active
     opacity 0
     transform scale(1,0)
+  &.ng-enter.ng-enter-active
+  &.ng-leave
+    opacity 1
+    transform scale(1,1)
+
+.comment
+  transition all 300ms ease-in-out
+  &.ng-enter
+  &.ng-leave.ng-leave-active
+    opacity 0
+    transform scale(0,0)
+  &.ng-enter.ng-enter-active
+  &.ng-leave
+    opacity 1
+    transform scale(1,1)
 
 .item
   width 70%
@@ -306,7 +308,7 @@ input[type=checkbox]:checked + .custom-checkbox:after
   position fixed
   right -200px
   height 100%
-  padding-top 90px
+  padding-top 75px
   border-left 2px solid #eaebee
   width 200px
   background #f9f9f9
@@ -329,7 +331,7 @@ input[type=checkbox]:checked + .custom-checkbox:after
 
 .sidebar
   .profile
-    padding 15px 15px 50px
+    padding 15px 15px
 
 .profile-image
 .profile-name
@@ -341,16 +343,16 @@ input[type=checkbox]:checked + .custom-checkbox:after
 .profile-image
 .sidebar-navigation-item-icon
   background basket-blue
-  width 50px  
-  height 50px  
+  width 40px  
+  height 40px  
   border-radius 50%
   color #fff
   text-align center
-  font-size 25px
+  font-size 20px
   margin-right 15px
   i
-    top 50%
-    transform translateY(-50%)
+    top 40%
+    transform translateY(-40%)
     position relative
 
 section
@@ -454,7 +456,7 @@ section
 .modal
   position fixed
   width 70%
-  max-width 500px
+  max-width 750px
   padding 25px
   background #fff
   box-shadow 0 0 100px 10px rgba(0,0,0,0.25)
@@ -475,8 +477,20 @@ section
 .new-color
   display inline-block
   vertical-align middle
-  width 40px
-  height 40px
+  width 30px
+  height 30px
+
+.scrollable
+  overflow-x hidden
+  overflow-y auto
+  max-height 400px
+  width 100% !important
+  position relative
+  display inline-block
+
+.assigned-people
+  font-size 12px
+  width 80%
 
 @media screen and (min-width 768px)
   .header
@@ -486,7 +500,7 @@ section
       top 15%
       transform translateY(-15%)
   .header-button
-    padding 29px 25px
+    padding 28px 25px
   .header-button-wrapper
     right 80px
   .sidebar
@@ -501,12 +515,28 @@ section
       font-size 25px
   .container
     padding 90px 75px 0 0
+  .comment-notification
+    width 10px
+    height 10px
+  .assigned-people
+    font-size 18px
+    width 100%
+  .profile-image
+  .sidebar-navigation-item-icon
+    width 50px  
+    height 50px
+    font-size 25px
+    i
+      top 50%
+      transform translateY(-50%)
+      position relative
 
 @media screen and (min-width 1024px)
   .btn-menu
     display none
   .sidebar
     right 0
+    padding-top 90px
   .container
     padding 90px 200px 0 0
   input[type="checkbox"]

@@ -1,24 +1,36 @@
 .modal
   a.btn.right.top(ng-click='closeModal()')
-    i.fa.fa-times
+    i.fa.fa-times.fa-2x
 
   .modal-content(ng-if='type === 1')
     h1 Share list
-    span.block List shared with
-    .list-item.inline-block.margin-right-5(ng-repeat="person in people")
-      a.btn.btn-assign
-        .profile
-          .profile-image(ng-style='{"background-color": person.color}')
-            i.fa.fa-user
-          .profile-name {{person.firstname}} {{person.lastname}}
+    .block(ng-show='!addPerson')
+      span.block List shared with
+      .col.block
+        .scrollable
+          .list-item.inline-block.margin-right-5(ng-repeat='person in people')
+            a.btn.btn-assign.no-hover
+              .profile
+                .profile-image(ng-style='{"background-color": person.color}')
+                  i.fa.fa-user
+                .profile-name {{person.firstname}} {{person.lastname}}
+    .block(ng-show='addPerson')
+      span.block Add a new person
+      form(ng-submit='addNewPerson(); addPerson = !addPerson')
+        input(type='text' ng-model='newPerson.firstname' placeholder='Firstname')
+        input(type='text' ng-model='newPerson.lastname' placeholder='Lastname')
+        input(type='email' ng-model='newPerson.email' novalidate placeholder='email@domain.com')
+        input.btn.btn-send(type='submit' ng-disabled="!newPerson.email" value='Share list with {{newPerson.firstname}} {{newPerson.lastname}}')
+    a.btn.btn-assign(ng-click='addPerson = !addPerson' ng-show="!addPerson") Add a new person
 
   .modal-content(ng-if='type === 2')
     h1 Email list
-    input(type='email' ng-model='email' novalidate placeholder='email@domain.com')
-    button.btn.light-green-block(ng-click='sendEmail()' ng-disabled='!email') send
-    span.block.green(ng-if='emailSent') List sent to {{email}}!
+    form(ng-submit='sendEmail()')
+      input(type='email' ng-model='email' novalidate placeholder='email@domain.com')
+      input.btn.btn-send(type='submit' ng-click='sendEmail()' ng-disabled='!email' value='Send list to {{email}}')
+    span.block.green.margin-top-15(ng-if='emailSent') List sent to {{email}}!
 
   .modal-content(ng-if='type === 3')
     h1 Settings
-    a.btn(ng-click='changeColor()') Change profile color
-    .new-color(ng-style='{"background-color": currentUser.color}')
+    a.btn.btn-assign.inline-block.va-middle(ng-click='changeColor()') Change profile color
+      .va-middle.new-color(ng-style='{"background-color": currentUser.color}')

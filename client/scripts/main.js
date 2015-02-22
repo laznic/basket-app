@@ -18,7 +18,6 @@ var modules = [
   require('./storage'),
   require('./list'),
   require('./singleitem'),
-  require('./sidebar'),
   require('./modal')
 ];
 
@@ -48,8 +47,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function($ro
 
 // Setup mock data
 app.run(['$location', '$localStorage', '$rootScope', function($location, $localStorage, $rootScope) {
-  // delete $localStorage.list;
-  // delete $localStorage.item;
 
   $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
       $rootScope.frontPage = true;
@@ -58,24 +55,27 @@ app.run(['$location', '$localStorage', '$rootScope', function($location, $localS
       }
   });
 
+  $rootScope.openModal = function(modal) {
+    $rootScope.modal = modal;
+  };
+
   $rootScope.toggleMenu = function() {
     $rootScope.menutoggled = !$rootScope.menutoggled;
   }
 
-  if(!$localStorage.currentUser && !$localStorage.people) {
-    $localStorage.currentUser = {id: 1, firstname: 'John', lastname: 'Doe', profilepicture: '', color: '' };
-    $localStorage.people = [
-        $localStorage.currentUser,
-        { id: 2, firstname: 'Jane', lastname: 'Doe', shared: true, profilepicture: '', color: '' },
-        { id: 3, firstname: 'Bob', lastname: 'Dylan', shared: true, profilepicture: '', color: '' },
-        { id: 4, firstname: 'Jack', lastname: 'Black', shared: true, profilepicture: '', color: '' },
+  if(!$rootScope.currentUser && !$rootScope.people) {
+    $rootScope.currentUser = {id: 1, firstname: 'John', lastname: 'Doe', email:'john.doe@domain.com', profilepicture: '', color: '' };
+    $rootScope.people = [
+        $rootScope.currentUser,
+        { id: 2, firstname: 'Jane', lastname: 'Doe', email:'jane.doe@domain.com', shared: true, profilepicture: '', color: '' },
+        { id: 3, firstname: 'Bob', lastname: 'Dylan', email:'bob@dylan.com', shared: true, profilepicture: '', color: '' },
+        { id: 4, firstname: 'Jack', lastname: 'Black', email:'jack.black@lulz.com', shared: true, profilepicture: '', color: '' },
       ];
-      _.each($localStorage.people, function(person) {
+      _.each($rootScope.people, function(person) {
         person.color = Please.make_color()[0];
       });
 
-      $localStorage.currentUser.color = $localStorage.people[0].color;
+      $rootScope.currentUser.color = $rootScope.people[0].color;
   }
-    $rootScope.currentUser = $localStorage.currentUser;
 }]);
 

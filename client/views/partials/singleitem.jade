@@ -34,7 +34,7 @@
             span.small.comment-timestamp {{comment.created | date:'MMM d, y - H:mm'}}
 
     .list
-      .comment
+      form.comment(ng-submit='addComment()')
         .comment-text.new-comment
           textarea(ng-model='newComment.text')
         .comment-user.inline-block.new-comment-user
@@ -43,4 +43,4 @@
               i.fa.fa-user
             .profile-name.block.ta-center
               | You
-        button.btn.btn-block.btn-add-comment(ng-click='addComment()' ng-disabled='!newComment.text') Add comment
+        input.btn.btn-block.btn-add-comment(type='submit' ng-disabled='!newComment.text' value='Add comment')

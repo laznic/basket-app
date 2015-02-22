@@ -12,13 +12,13 @@ html(lang="en", ng-app='basket')
       .header-logo
         span B
       .header-button-wrapper
-        button.btn.header-button(ng-if="frontPage" ng-controller="listController" ng-click="addNewList()") I need a new list!
-        button.btn.header-button(ng-if="!frontPage" ng-controller="singleItemController" ng-click="goBack()") All done
+        a.btn.header-button(ng-if="frontPage" ng-controller="listController" ng-click="addNewList()") I need a new list!
+        a.btn.header-button(ng-if="!frontPage" ng-controller="singleItemController" ng-click="goBack()") All done
       .header-menu-button
         a.btn.btn-menu(ng-click='toggleMenu()')
           i.fa.fa-bars.fa-2x
 
-    .sidebar(ng-class='{"sidebar-toggled": menutoggled}' ng-controller="sidebarController")
+    .sidebar(ng-class='{"sidebar-toggled": menutoggled}')
       .profile
         .profile-image(ng-style='{"background-color": currentUser.color}')
           i.fa.fa-user
