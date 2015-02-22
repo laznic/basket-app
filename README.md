@@ -1,4 +1,4 @@
-# Vikings of Code - frontend template
+# Basket - the superior grocery list application
 
 ## Built with [AngularJS](http://angularjs.com)
 ```
