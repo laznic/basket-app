@@ -10,8 +10,6 @@ gulp start
 Check the console for local / external URL and open it in your browser.
 ```
 
-*Note: you might have to rebuild (just CTRL / CMD + S) the main.js file the first time you go to the local address*
-
 ## How to use
 * You can create a new list using the button on top of the page
 * When you have created a list, you can use the gray button to add items to the list. You can also use ENTER for adding items.
