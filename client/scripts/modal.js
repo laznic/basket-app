@@ -2,7 +2,7 @@ var modal = angular.module('modal', []);
 var Please = require('pleasejs/dist/Please.js');
 var _ = window._;
 
-modal.directive('modalWindow', ['$localStorage', '$rootScope', function($localStorage, $rootScope) {
+modal.directive('modalWindow', ['$rootScope', function($rootScope) {
   return {
     restrict: 'E',
     replace: true,

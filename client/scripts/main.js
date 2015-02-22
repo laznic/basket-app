@@ -44,7 +44,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function($ro
 }]);
 
 // Setup mock data
-app.run(['$location', '$localStorage', '$rootScope', function($location, $localStorage, $rootScope) {
+app.run(['$location', '$rootScope', function($location, $rootScope) {
 
   $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
       $rootScope.frontPage = true;
