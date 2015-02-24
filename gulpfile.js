@@ -138,13 +138,12 @@ gulp.task('fontawesome-fonts', ['fontawesome'], function() {
 gulp.task('watch', function() {
 
   gulp.watch(paths.styles.watch, ['styles']);
-  gulp.watch(paths.scripts.source, ['scripts', sync.reload]);
-  gulp.watch(paths.templates.watch, ['templates', sync.reload]);
-  gulp.watch(paths.partials.watch, ['partials', sync.reload]);
-  gulp.watch(paths.media.watch, ['media', sync.reload]);
+  gulp.watch(paths.scripts.source, ['scripts']).on('change', sync.reload);
+  gulp.watch(paths.templates.watch, ['templates']).on('change', sync.reload);
+  gulp.watch(paths.partials.watch, ['partials']).on('change', sync.reload);
+  gulp.watch(paths.media.watch, ['media']).on('change', sync.reload);
 
   var config = {
-    files: [paths.scripts.destination, paths.templates.destination, paths.partials.destination, paths.media.destination, './build/client/bundle.js'],
     port: 6678,
     open: false,
     reloadDelay: 250,
