@@ -146,7 +146,6 @@ gulp.task('watch', function() {
   var config = {
     port: 6678,
     open: false,
-    reloadDelay: 250,
     server: {
       baseDir: 'build/client'
     }
