@@ -6,7 +6,7 @@ modal.directive('modalWindow', ['$rootScope', function($rootScope) {
   return {
     restrict: 'E',
     replace: true,
-    templateUrl: 'views/modal.html',
+    templateUrl: 'views/modal',
     scope: {
       type: '='
     },

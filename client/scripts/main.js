@@ -31,11 +31,11 @@ var views   = 'views/',
 app.config(['$routeProvider', '$locationProvider', '$httpProvider', function($routeProvider, $locationProvider, $httpProvider) {
   $routeProvider
     .when(baseUrl + ':list?', {
-      templateUrl: views + 'list.html',
+      templateUrl: views + 'list',
       controller:  'listController'
     })
     .when(baseUrl + ':list?/:item', {
-      templateUrl: views + 'singleitem.html',
+      templateUrl: views + 'singleitem',
       controller: 'singleItemController'
     })
     .otherwise({redirectTo: baseUrl});

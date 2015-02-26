@@ -12,7 +12,8 @@ var path        = require('path'),
     watchify    = require('watchify'),
     uglify      = require('gulp-uglify'),
     streamify   = require('gulp-streamify'),
-    del         = require('del');
+    del         = require('del'),
+    nodemon     = require('gulp-nodemon');
 
 var production = process.env.NODE_ENV === 'production';
 
@@ -42,6 +43,11 @@ var paths = {
     watch:        'client/media/**/*.*',
     destination:  'build/client/media/'
   },
+  server: {
+    source:       'server/**/*.js', 
+    watch:        'server/**/*.js', 
+    destination:  'build/server/'
+  },
   bower: {
     source:       'bower_components/',
     fontsdest:    'build/client/fonts'
@@ -60,11 +66,11 @@ gulp.task('clean-scripts', function(cb) {
 });
 
 gulp.task('clean-templates', function(cb) {
-  del([paths.templates.destination + '*.html'], cb);
+  del([paths.templates.destination + '*.jade'], cb);
 });
 
 gulp.task('clean-partials', function(cb) {
-  del([paths.partials.destination + '*.html'], cb);
+  del([paths.partials.destination + '*.jade'], cb);
 });
 
 gulp.task('clean-styles', function(cb) {
@@ -73,6 +79,10 @@ gulp.task('clean-styles', function(cb) {
 
 gulp.task('clean-media', function(cb) {
   del([paths.media.destination + '**/*.*'], cb);
+});
+
+gulp.task('clean-server', function(cb) {
+  del([paths.server.destination  + '*.js'], cb);
 });
 
 gulp.task('scripts', ['clean-scripts'], function() {
@@ -95,14 +105,14 @@ gulp.task('scripts', ['clean-scripts'], function() {
 
 gulp.task('templates', ['clean-templates'], function() {
   return gulp.src(paths.templates.source)
-             .pipe(jade({pretty: true}))
+             // .pipe(jade({pretty: true}))
              .on('error', handleError)
              .pipe(gulp.dest(paths.templates.destination));
 });
 
 gulp.task('partials', ['clean-partials'], function() {
   return gulp.src(paths.partials.source)
-             .pipe(jade({pretty: true}))
+             // .pipe(jade({pretty: true}))
              .on('error', handleError)
              .pipe(gulp.dest(paths.partials.destination));
 });
@@ -122,7 +132,8 @@ gulp.task('styles', ['clean-styles'], function() {
 
 gulp.task('media', ['clean-media'], function() {
   return gulp.src(paths.media.source)
-             .pipe(gulp.dest(paths.media.destination));
+             .pipe(gulp.dest(paths.media.destination))
+             .pipe(sync.reload({stream: true}));
 });
 
 gulp.task('fontawesome', ['clean-styles'], function() {
@@ -135,20 +146,38 @@ gulp.task('fontawesome-fonts', ['fontawesome'], function() {
              .pipe(gulp.dest(paths.bower.fontsdest));
 });
 
+gulp.task('server', ['clean-server'], function() {
+    return gulp.src(paths.server.source)
+               .pipe(gulp.dest(paths.server.destination));
+});
+
+gulp.task('startup', function() {
+    nodemon({
+      script: 'build/server/index.js',
+      ext: 'js jade',
+      watch: ['build/server/index.js', 'build/client/**/*.jade'],
+      ignore: ['client/**/*.js/', 'build/client/**/*.js']
+    })
+    .on('restart', function() {
+      setTimeout(function() {
+        sync.reload({ stream: false });
+      }, 1250);
+    });
+});
+
 gulp.task('watch', function() {
 
   gulp.watch(paths.styles.watch, ['styles']);
   gulp.watch(paths.scripts.source, ['scripts']).on('change', sync.reload);
-  gulp.watch(paths.templates.watch, ['templates']).on('change', sync.reload);
-  gulp.watch(paths.partials.watch, ['partials']).on('change', sync.reload);
-  gulp.watch(paths.media.watch, ['media']).on('change', sync.reload);
+  gulp.watch(paths.templates.watch, ['templates']);
+  gulp.watch(paths.partials.watch, ['partials']);
+  gulp.watch(paths.media.watch, ['media']);
+  gulp.watch(paths.server.watch, ['server']);
 
   var config = {
-    port: 6678,
-    open: false,
-    server: {
-      baseDir: 'build/client'
-    }
+    port: 7678,
+    proxy: 'localhost:6678',
+    open: false
   };
 
   var bundle = watchify(browserify({
@@ -178,8 +207,8 @@ gulp.task('watch', function() {
 
 });
 
-gulp.task('build', ['templates', 'partials', 'styles', 'media', 'scripts', 'fontawesome', 'fontawesome-fonts']);
+gulp.task('build', ['templates', 'partials', 'styles', 'media', 'scripts', 'fontawesome', 'fontawesome-fonts', 'server']);
 
-gulp.task('start', ['watch']);
+gulp.task('start', ['watch', 'startup']);
 
 gulp.task('default', ['build']);

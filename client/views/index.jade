@@ -5,12 +5,12 @@ html(lang="en", ng-app='basket')
     meta(http-equiv='X-UA-Compatible' content='IE-edge')
     meta(name='viewport' content='width=device-width, initial-scale=1, user-scalable=no')
     title Basket - the superior grocery list application
-    link(rel='stylesheet' href='css/font-awesome.min.css' media='screen')
-    link(rel='stylesheet' href='css/styles.css' media='screen')
+    link(rel='stylesheet' href='public/css/font-awesome.min.css' media='screen')
+    link(rel='stylesheet' href='public/css/styles.css' media='screen')
   body
     header.header
       .header-logo
-        span B
+        span Basdasd
       .header-button-wrapper
         a.btn.header-button(ng-if="frontPage" ng-controller="listController" ng-click="addNewList()") I need a new list!
         a.btn.header-button(ng-if="!frontPage" ng-controller="singleItemController" ng-click="goBack()") All done
@@ -48,5 +48,5 @@ html(lang="en", ng-app='basket')
 
     .container(ng-view)
 
-    script(type='text/javascript' src='media/lodash.js')
-    script(type='text/javascript' src='js/bundle.js')
+    script(type='text/javascript' src='public/media/lodash.js')
+    script(type='text/javascript' src='public/js/bundle.js')
