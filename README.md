@@ -11,7 +11,7 @@ gulp start
 Check the console for local / external URL and open it in your browser.
 ```
 
-You can test the app at (https://vikingsofco.de/basket)
+You can test the app at https://vikingsofco.de/basket
 
 ## How to use
 * You can create a new list using the button on top of the page
