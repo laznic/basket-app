@@ -1,7 +1,7 @@
 var list = angular.module('list', []),
     _    = window._;
 
-list.controller('listController', ['$route', '$location', '$scope', '$rootScope', '$routeParams', 'locker', function($route, $location, $scope, $rootScope, $routeParams, locker) {
+list.controller('listController', ['$route', '$location', '$scope', '$rootScope', '$routeParams', 'locker', 'sockets', function($route, $location, $scope, $rootScope, $routeParams, locker, sockets) {
   $scope.currentUser = $rootScope.currentUser;
   $scope.checkedList = [];
   $scope.addItemText = 'What do you need?';
@@ -88,6 +88,10 @@ list.controller('listController', ['$route', '$location', '$scope', '$rootScope'
       .replace(/^-+/, '')             // Trim - from start of text
       .replace(/-+$/, '');            // Trim - from end of text
   }
+
+  $scope.$on('socket:event:connect', function (ev, data) {
+    console.log(data);
+  });
 
 }]);
 

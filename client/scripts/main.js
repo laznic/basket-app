@@ -3,12 +3,14 @@ require('angular');
 require('angular-route');
 require('angular-resource');
 require('angular-animate');
+require('angular-socket-io');
 var Please = require('pleasejs/dist/Please.js');
 
 var dependencies = [
   'ngRoute',
   'ngResource',
-  'ngAnimate'
+  'ngAnimate',
+  'btford.socket-io'
 ];
 
 // Get custom modules and push them to dependencies
@@ -75,5 +77,11 @@ app.run(['$location', '$rootScope', function($location, $rootScope) {
 
       $rootScope.currentUser.color = $rootScope.people[0].color;
   }
+}]);
+
+app.factory('sockets', ['socketFactory', function(socketFactory) {
+  var sockets = socketFactory();
+  sockets.forward('event:connect');
+  return sockets;
 }]);
 

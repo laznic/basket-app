@@ -10,7 +10,7 @@ html(lang="en", ng-app='basket')
   body
     header.header
       .header-logo
-        span Basdasd
+        span B
       .header-button-wrapper
         a.btn.header-button(ng-if="frontPage" ng-controller="listController" ng-click="addNewList()") I need a new list!
         a.btn.header-button(ng-if="!frontPage" ng-controller="singleItemController" ng-click="goBack()") All done
@@ -48,5 +48,6 @@ html(lang="en", ng-app='basket')
 
     .container(ng-view)
 
+    script(type='text/javascript' src='https://cdn.socket.io/socket.io-1.3.4.js')
     script(type='text/javascript' src='public/media/lodash.js')
     script(type='text/javascript' src='public/js/bundle.js')

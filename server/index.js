@@ -1,6 +1,7 @@
 var Hapi = require('hapi'),
     Glue = require('glue'),
-    path = require('path');
+    path = require('path'),
+    socketIO = require('socket.io');
 
 var composeOptions = {
   relativeTo: __dirname
@@ -19,6 +20,7 @@ var manifest = {
   },
   connections: [
     {
+      host: 'localhost',
       port: 6678,
       labels: ['web']
     }
@@ -35,6 +37,7 @@ var manifest = {
       },
       autoIndex: true
     },
+    'hapio': {},
     './plugins/web/index': {}
   }
 };
@@ -45,6 +48,10 @@ Glue.compose(manifest, composeOptions, function (err, server) {
   }
 
   server.start(function () {
-    console.log('Server started')
+    var io = server.plugins.hapio.io;
+    io.on('connection', function(socket) {
+      socket.emit('event:connect', {msg: 'lulz'});
+    });
+    console.log('Server started');
   });
 });

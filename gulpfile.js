@@ -161,7 +161,7 @@ gulp.task('startup', function() {
     .on('restart', function() {
       setTimeout(function() {
         sync.reload({ stream: false });
-      }, 1250);
+      }, 1750);
     });
 });
 
