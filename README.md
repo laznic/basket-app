@@ -1,6 +1,6 @@
 # Basket - the superior grocery list application
 
-## Built with [AngularJS](http://angularjs.com)
+## Built with [AngularJS](http://angularjs.com), [Hapi](http://hapijs.com), [Socket.IO](http://socket.io) and [MongoDB](https://www.mongodb.org/)
 ```
 git clone https://github.com/laznic/basket-app.git <project name>
 cd <project name>
