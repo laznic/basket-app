@@ -15,6 +15,7 @@ var dependencies = [
 
 // Get custom modules and push them to dependencies
 var modules = [
+  require('./resource'),
   require('./storage'),
   require('./list'),
   require('./singleitem'),

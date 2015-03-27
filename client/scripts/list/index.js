@@ -1,7 +1,7 @@
 var list = angular.module('list', []),
     _    = window._;
 
-list.controller('listController', ['$route', '$location', '$scope', '$rootScope', '$routeParams', 'locker', 'sockets', function($route, $location, $scope, $rootScope, $routeParams, locker, sockets) {
+list.controller('listController', ['$route', '$location', '$scope', '$rootScope', '$routeParams', 'locker', 'sockets', 'listApi', '$q', function($route, $location, $scope, $rootScope, $routeParams, locker, sockets, listApi, $q) {
   $scope.currentUser = $rootScope.currentUser;
   $scope.checkedList = [];
   $scope.addItemText = 'What do you need?';
@@ -42,8 +42,12 @@ list.controller('listController', ['$route', '$location', '$scope', '$rootScope'
 
   // New list creation
   function createNewList() {
-    $scope.list.id = createId();
-    $location.path('/' + $scope.list.id);   
+    listApi.createNewList({ user: { realname: 'John Doe', username: 'johndoe', email: 'john@doe.com' } }).$promise.then(function (data) {
+      $scope.list.id = data.hash;
+      $location.path('/' + $scope.list.id);
+    });
+    
+    
   }
 
   $scope.addNewList = function() {
