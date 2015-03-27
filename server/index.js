@@ -35,9 +35,13 @@ var manifest = {
       mongodb: {
         url: 'mongodb://localhost:27017/basket'
       },
-      autoIndex: true
+      autoIndex: true,
+      models: {
+        'List': './server/models/list'
+      }
     },
     'hapio': {},
+    './plugins/api/list': { basePath: '/api' },
     './plugins/web/index': {}
   }
 };
