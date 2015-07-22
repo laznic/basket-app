@@ -26,6 +26,16 @@ var manifest = {
     }
   ],
   plugins: {
+    'yar': {
+      name: 'basket-session',
+      cache: {
+        expiresIn: 24 * 60 * 60 * 1000
+      },
+      cookieOptions: {
+        password: 'basket-auth',
+        isSecure: false
+      }
+    },
     'lout': {},
     'visionary': {
       engines: { jade: 'jade' },

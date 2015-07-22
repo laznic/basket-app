@@ -83,6 +83,7 @@ app.run(['$location', '$rootScope', function($location, $rootScope) {
 app.factory('sockets', ['socketFactory', function(socketFactory) {
   var sockets = socketFactory();
   sockets.forward('event:connect');
+  sockets.forward('event:item:new');
   return sockets;
 }]);
 

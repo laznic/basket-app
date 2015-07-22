@@ -62,6 +62,7 @@ list.controller('listController', ['$route', '$location', '$scope', '$rootScope'
   // Add new item to the list
   $scope.addNewItem = function() {
     $scope.addItemText = 'What else do you need?';
+    sockets.emit('event:item:new', {text: '', checked: false, assignedTo: [], comments: [], newComments: false});
     $scope.list.items.push({text: '', checked: false, assignedTo: [], comments: [], newComments: false});
     $scope.focus = $scope.list.items.length;
   };

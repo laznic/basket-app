@@ -3,7 +3,9 @@ var Hoek = require('hoek');
 exports.register = function (server, options, next) {
 
     options = Hoek.applyToDefaults({ basePath: '' }, options);
-    
+    var io = server.plugins.hapio.io;
+
+
     function createId () {
         var text = '';
         var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -48,6 +50,10 @@ exports.register = function (server, options, next) {
       path: options.basePath + '/list/{hash}',
       handler: function (request, reply) {
         var List = request.server.plugins['hapi-mongo-models'].List;
+
+        io.on('event:item:new', function (socket) {
+          console.log("new item");
+        });
 
         List.findOne({ hash: request.params.hash }, function (err, list) {
           if (!err) {
