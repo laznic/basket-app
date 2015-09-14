@@ -27,4 +27,5 @@ You can test the app at https://vikingsofco.de/basket
   - Settings
   -- You can change your profile color
 
+Enjoy!
 
